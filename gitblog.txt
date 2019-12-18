@@ -25,6 +25,7 @@ git add  --> git commit
 # 获得版本库 git init git clone
 # 查看信息 git help git log git diff
 # 版本管理 git add(暂存区) git commit(版本库) git rm
+# git add 的三个作用: 1.将未追踪的文件纳入暂存区，2.将已追踪的文件纳入暂存区，3.手工解决冲突后，使用该命令表示冲突被解决
 # 远程协作 git push git pull
 
 # git commit -am 'info' (git add files + git commit -m 'info')
@@ -51,12 +52,13 @@ git add  --> git commit
 # git help : man git-config / git help config / git config --help
 
 # .gitignore (忽略工作区中 被该文件内容所匹配的文件)
+# git add * (忽略.gitignore中的匹配的文件)
 
 # 分支 查看 git branch 创建 git branch new_branch
 # 切换 git checkout new_branch/- | git checkout -b new_branch (创建+切换分支)
 # 删除 git branch -d new_branch(空分支) | git branch -D new_branch(没有合并的分支)
 # 合并分支 git merge new_branch(将 new_branch合并到当前分支)
-# 提交到信息 git branch -v
+# 提交的所有分支信息 git branch -av
 # 分支概念：一条工作记录线
 # 合并分支 手工解决冲突：两个分支，同时修改了一个文件，手工修改文件后，git add file
 # git merge --no-ff new_branch(禁用fast-forward模式, 多出来一个commit id)
@@ -113,7 +115,8 @@ index 1e5412f..dce40b4 100644
 # 远程与github
 # push 推送
 # pull: 拉取，同时执行合并merge
-# pull == fetch + merge
+# pull == fetch + merge(merge origin/master)
+# pull 出现冲突：手工解决冲突，本地库与远程库同时修改了一个文件，手工修改文件后，git add file
 
 # 创建github账号，创建仓库和推送
 # git remote add origin https://github.com/wy-matata/myblog.git (origin 表示后面的url)
@@ -122,4 +125,9 @@ index 1e5412f..dce40b4 100644
 
 # git flow
 # 基于git分支的开发模型：develop分支，test分支，master分支(生产分布分支)，bugfix分支(紧急修护分支)
+# [root@localhost test-wy]# git branch -a
+#  * master
+#  remotes/origin/master   (远程分支: 追踪远程库的master分支)
+
+# git clone git@github.com:wy-matata/test.git test-ylt (以test-ylt为项目名)
 # 
