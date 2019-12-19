@@ -130,4 +130,28 @@ index 1e5412f..dce40b4 100644
 #  remotes/origin/master   (远程分支: 追踪远程库的master分支)
 
 # git clone git@github.com:wy-matata/test.git test-ylt (以test-ylt为项目名)
-# 
+
+# git远程分支，git refspec, git别名，gitk与git gui使用
+# 别名: git config --global alias.br branch  (vi ~/.gitconfig)
+#      git config --global alias.ch checkout
+# git config --global alias.logecho 'log --pretty=oneline --abbrev-commit'
+# git config --global alias.ls '!ls' (等价与执行ls命令)
+# 1.git ch -b develop
+#   git push --set-upstream origin develop (本土develop分支与远程develop分支连接)
+#   另一个用户: git pull && git ch -b develop origin/develop
+#           Branch develop set up to track remote branch develop from origin.
+#           Switched to a new branch 'develop'
+# 2.git ch -b test
+#   git push -u origin test
+# 另一用户： git pull && git ch --track origin/test
+
+# git push == git push origin src:dest
+# git pull == git pull origin src:dest
+
+# 删除本地分支: git br -d develop
+# 删除远程分支: git push origin :develop
+
+# git push --set-upstream origin develop:develop1 (追踪分支)
+# git push origin develop:develop2
+# git push origin develop 
+
