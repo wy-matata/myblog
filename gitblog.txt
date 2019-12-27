@@ -190,3 +190,18 @@ index 1e5412f..dce40b4 100644
 # 删除submodule: 1.submodules缓存区移除，2.submodules实体文件从工作区删除，3. .gitmodules文件删除
 # git rm --cached comodule ; rm -rf comodule ; rm .gitmodules; git add . ;git commit -m 'delete'; git push
 
+# git subtree 用法
+# git remote add sub-origin git@github.com:wy-matata/git-child.git
+# git subtree add --prefix=subtree sub-origin master --squash(将多次提交合并为一次, squash要么全使用，要么都不使用)
+# git subtree pull --prefix=subtree sub-origin master --squash
+
+# git cm 'add character filter.txt' (修改subtree文件) ; git push
+# git subtree push --prefix=subtree sub-origin master (推送至 远程被依赖的模块)
+
+# CONFLICT (content): Merge conflict in subtree/filter.txt
+# 现象: 一个仓库提交后，另一个被依赖仓库pull，然后修改，再提交，一个仓库pull，出现冲突
+# 原因: 找不到公共的节点
+
+# git cherry-pick 用法 (将其他分支的修改加入另一分支)
+# git cherry-pick 921ff81(commit id 按顺序)
+
