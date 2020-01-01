@@ -1,4 +1,5 @@
-ngo基础，DRF
+# drf vue
+# django基础，DRF
 # vue, element-ui
 # cmdb, zabbix, ansible, sql
 

@@ -209,3 +209,17 @@ index 1e5412f..dce40b4 100644
 # 最佳实践：不要在master分支，远程版本库的分支执行此命令
 # git rebase develop(在 test分支执行此命令，变基到develop分支)
 
+# gitlab 安装使用
+# yum install -y curl policycoreutils-python openssh-server
+# systemctl enable sshd
+# systemctl start sshd
+# firewall-cmd --permanent --add-service=http
+# firewall-cmd --permanent --add-service=https
+# systemctl reload firewalld
+# yum install postfix
+# systemctl enable postfix
+# systemctl start postfix
+# curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.rpm.sh | bash
+# yum install -y gitlab-ee
+# 修改/etc/gitlab/gitlab.rb external_url 'http://192.168.72.196' (对应的域名或主机名或ip)
+
