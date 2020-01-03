@@ -6,16 +6,18 @@ Hugo是由Go语言实现的静态网站生成器。简单、易用、高效、�
 * Linux: 
 
 ## 2. 创建一个站点
-hugo new site blog
-目录结构如下：
-
->├─archetypes
->├─content
->├─data
->├─layouts
->├─static
->├─themes
->└─config.toml
+hugo new site matata
+```
+matata/
+├── archetypes
+│   └── default.md
+├── config.toml
+├── content
+├── data
+├── layouts
+├── static
+└── themes
+```
 
 ### 配置你的 config.toml
 
