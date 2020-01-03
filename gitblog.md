@@ -1,0 +1,251 @@
+# git == free and open source distributed version control system
+全面介绍git使用，原理
+
+## 1. install
+[官网](https://git-scm.com/)
+
+## 2. 缓存区,工作区和版本库
+### 初始化版本库与获取一个版本库
+```
+git init (初始化版本库)
+git clone git@github.com:wy-matata/test.git test-ylt (以test-ylt为项目名,ssh方式)
+git clone https://github.com/wy-matata/test.git test-ylt(https,默认test项目名)
+```
+
+### git文件存储
+git记录的是快照，而非差异比较，文件的三种状态：已修改，已暂存，已提交
+
+```
+工作区    -->     暂存区       -->        对象库(版本库)
+        git add     -->     git commit
+```
+
+### git add 的三个作用
+
+1.将未追踪的文件纳入暂存区
+2.将已追踪的文件纳入暂存区
+3.手工解决冲突后，使用该命令表示冲突被解决
+
+### git commit 用法
+```
+git commit -m 'info' (将暂存区文件提交到本地版本库)
+git commit -am 'info' == git add files + git commit -m 'info' (已经纳入暂存的文件)
+git commit --amend -m 'info' (修改上一次提交信息)
+```
+
+### git 常用命令
+```
+获得版本库 git init, git clone
+查看信息 git help, git log, git diff, git status
+版本管理 git add, git commit
+远程协作 git push, git pull
+
+
+# 版本回退
+# 修改与撤销修改，文件的添加和删除
+# git对象类型与索引
+# git分支，如何创建分支/切换分支与删除分支
+# git分支在项目开发中的作用，最佳实践，git分支常见重要命令
+# git merge与git冲突解决策略，head详解，git commit修改详解
+# 远程版本库介绍，如何使用远程版本库
+# git push，pull，fetch使用与注意事项
+# git合并的基本原则，git别名，config文件详解
+# git tag详解，如何创建与推送tag
+# git feature分支详解
+# 何时使用submodule， git subtree详解 .gitignore的正确使用方式
+# git私服gitlab的搭建方法，gitlab使用详解，如何使用gitlab管理项目分组/用户角色，gitlab issue与提交使用技巧
+# github使用方法介绍
+# 搭建基于intellij IDEA的java环境，基于gradle的Java环境
+
+
+# user.name与user.email三个地方可以设置
+# 1. /etc/gitconfig(几乎不会使用)  git config --system
+# 2. ~/.gitconfig(常用)  git config --global
+# 3.    .git/config(针对特定项目) git config --local user.name 'wy'
+#                            git config --local user.email 'wy@yeluotian.com'
+# 4. 修改用户: git commit --amend --reset-author
+
+# 已提交至版本库的文件删除后，恢复过程
+# 1.git rm file  (1.删除一个文件 2.将被删除的文件纳入暂存区)
+#   git reset HEAD file (将被删除的文件从暂存区恢复到工作区)
+#   git checkout -- file (将工作区文件的修改丢弃)  /  git checkout . (将所有工作区文件的修改丢弃)
+
+# 2.rm file  (直接删除，并没有将被删除的文件纳入暂存区)
+
+# (git mv 与 mv) 与 (git rm 和 rm) 类似，
+
+# 日志历史查看： git log --pretty=oneline   git log --pretty=format:"%h-%an,%ar:%s"
+# git help : man git-config / git help config / git config --help
+
+# .gitignore (忽略工作区中 被该文件内容所匹配的文件)
+# git add * (忽略.gitignore中的匹配的文件)
+
+# 分支 查看 git branch 创建 git branch new_branch
+# 切换 git checkout new_branch/- | git checkout -b new_branch (创建+切换分支)
+# 删除 git branch -d new_branch(空分支) | git branch -D new_branch(没有合并的分支)
+# 合并分支 git merge new_branch(将 new_branch合并到当前分支)
+# 提交的所有分支信息 git branch -av
+# 分支概念：一条工作记录线
+# 合并分支 手工解决冲突：两个分支，同时修改了一个文件，手工修改文件后，git add file
+# git merge --no-ff new_branch(禁用fast-forward模式, 多出来一个commit id)
+# 修改分支名字：git branch -m hello world
+
+# git log  --graph
+# git log --graph --pretty=oneline --abbrev-commit
+
+# git 回退版本
+# git reset --hard 'commit id' (HEAD^ 上一个版本)
+# git reflog (git操作日志，当最近的commit id因为切换版本而消失时，使用此命令可查看commit id)
+
+# git checkout进阶与stash
+# git checkout -- files (丢弃掉工作区相对与最后一次提交到暂存区文件的差异)
+# git checkout new_branch (切换分支)
+# git checkout (commit id) (切换版本)
+
+# 保存现场: git stash   查看现场：git stash list
+# 恢复现场: git stash apply(stash内容并不删除，通过git stash drop stash@{0}手动删除)
+#          git stash pop (恢复的同时删除stash内容)
+#          git stash apply stash@{0}
+
+
+# git 标签：轻量级标签(lightweight)和带有附注的标签(annotated)
+# 轻量级标签: git tag v1.0
+# 带有附注的标签 git tag -a v1.0.2 -m 'v1.0.0.2 released'
+# git-blame - Show what revision and author last modified each line of a file
+
+# git diff  (a:暂存区的文件，b:工作区的文件)
+[root@localhost mysecgit]# git diff tt.txt
+diff --git a/tt.txt b/tt.txt
+index 17ac647..1e5412f 100644
+--- a/tt.txt
++++ b/tt.txt
+@@ -3,3 +3,4 @@ add what line
+ git commit -am 'hhaa'
+ fsfsdfsdgsdg
+ hahaha
++wwwww
+
+# git diff HEAD(commit id) (比较最新的提交与工作区的差别)
+diff --git a/tt.txt b/tt.txt
+index 1e5412f..dce40b4 100644
+--- a/tt.txt
++++ b/tt.txt
+@@ -3,4 +3,4 @@ add what line
+ git commit -am 'hhaa'
+ fsfsdfsdgsdg
+ hahaha
+-wwwww
++wwwwwxcfdfd
+# git diff --cached (比较最新的提交与暂存区的差别)
+
+# 远程与github
+# push 推送
+# pull: 拉取，同时执行合并merge
+# pull == fetch + merge(merge origin/master)
+# pull 出现冲突：手工解决冲突，本地库与远程库同时修改了一个文件，手工修改文件后，git add file
+
+# 创建github账号，创建仓库和推送
+# git remote add origin https://github.com/wy-matata/myblog.git (origin 表示后面的url)
+# git push -u origin master (本地master关联至远程master)
+# git push: 再一次推送
+
+# git flow
+# 基于git分支的开发模型：develop分支，test分支，master分支(生产分布分支)，bugfix分支(紧急修护分支)
+# [root@localhost test-wy]# git branch -a
+#  * master
+#  remotes/origin/master   (远程分支: 追踪远程库的master分支)
+
+# git clone git@github.com:wy-matata/test.git test-ylt (以test-ylt为项目名)
+
+# git远程分支，git refspec, git别名，gitk与git gui使用
+# 别名: git config --global alias.br branch  (vi ~/.gitconfig)
+#      git config --global alias.ch checkout
+# git config --global alias.logecho 'log --pretty=oneline --abbrev-commit'
+# git config --global alias.ls '!ls' (等价与执行ls命令)
+# 1.git ch -b develop
+#   git push --set-upstream origin develop (本土develop分支与远程develop分支连接)
+#   另一个用户: git pull && git ch -b develop origin/develop
+#           Branch develop set up to track remote branch develop from origin.
+#           Switched to a new branch 'develop'
+# 2.git ch -b test
+#   git push -u origin test
+# 另一用户： git pull && git ch --track origin/test
+
+# git push == git push origin src:dest
+# git pull == git pull origin src:dest
+
+# 删除本地分支: git br -d develop
+# 删除远程分支: git push origin :develop / git push origin --delete develop
+# git pull origin bug:bug (当远程分支被删了时，该命令会报错)
+# git remote prune origin (删除已删除的远程分支的镜像 本地远程分支)
+# git remote show origin  (显示远程信息)
+
+# git push --set-upstream origin develop:develop (追踪远程分支)
+# git push origin develop:develop2
+# git push origin develop
+
+# git refspec与远程标签
+# HEAD标记: HEAD文件是一个指向当前所在分支的引用标识符，该文件不包含sha-1值，而是一个指向另一个引用的指针
+
+# git symbolic-ref HEAD
+# 推送标签至远程分支
+# git tag -a v1.0 -m 'v1.0 released'
+# git tag -d v1.0 (删除本地标签)
+# git push origin v1.0/ v1.0 v2.0 / --tags(将本地未推送的标签都推送至远程分支)
+# git push origin refs/tags/v5.0:refs/tags/v5.0 (完整写法,推送至远程分支)
+# git push origin --delete tag v6.0(删除远程标签)
+# || git push origin :refs/tags/v5.0
+# git fetch origin tag v7.0 (只拉取标签)
+
+# git远程分支底层分析
+
+# git log origin/master   (查看远程分支的log)
+# git log remotes/origin/master
+# git log refs/remotes/origin/master
+
+# git gc(垃圾收集)
+# .git/objects/ 压缩到.git/objects/pack/pack-*  .git/refs/{heads, remotes, tags}/ 压缩到 .git/packed-refs
+
+# git 裸库与 submodule
+# git 裸库: 没有工作区的仓库 git init --bare
+
+# 新建两个仓库，添加文件
+# 在git-parent仓库：git submodule add git@github.com:wy-matata/git-child.git comodule
+# git submodule foreach git pull (当 git-child仓库发生变化时，git-parent更新)
+# git clone git@github.com:wy-matata/git-parent.git --recursive (可同步拉取被依赖的模块)
+# 删除submodule: 1.submodules缓存区移除，2.submodules实体文件从工作区删除，3. .gitmodules文件删除
+# git rm --cached comodule ; rm -rf comodule ; rm .gitmodules; git add . ;git commit -m 'delete'; git push
+
+# git subtree 用法
+# git remote add sub-origin git@github.com:wy-matata/git-child.git
+# git subtree add --prefix=subtree sub-origin master --squash(将多次提交合并为一次, squash要么全使用，要么都不使用)
+# git subtree pull --prefix=subtree sub-origin master --squash
+
+# git cm 'add character filter.txt' (修改subtree文件) ; git push
+# git subtree push --prefix=subtree sub-origin master (推送至 远程被依赖的模块)
+
+# CONFLICT (content): Merge conflict in subtree/filter.txt
+# 现象: 一个仓库提交后，另一个被依赖仓库pull，然后修改，再提交，一个仓库pull，出现冲突
+# 原因: 找不到公共的节点
+
+# git cherry-pick 用法 (将其他分支的修改加入另一分支)
+# git cherry-pick 921ff81(commit id 按顺序)
+
+# git rebase 原理与用法
+# 最佳实践：不要在master分支，远程版本库的分支执行此命令
+# git rebase develop(在 test分支执行此命令，变基到develop分支)
+
+# gitlab 安装使用
+# yum install -y curl policycoreutils-python openssh-server
+# systemctl enable sshd
+# systemctl start sshd
+# firewall-cmd --permanent --add-service=http
+# firewall-cmd --permanent --add-service=https
+# systemctl reload firewalld
+# yum install postfix
+# systemctl enable postfix
+# systemctl start postfix
+# curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.rpm.sh | bash
+# yum install -y gitlab-ee
+# 修改/etc/gitlab/gitlab.rb external_url 'http://192.168.72.196' (对应的域名或主机名或ip)
+

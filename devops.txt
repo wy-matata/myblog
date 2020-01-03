@@ -49,5 +49,29 @@
 # >>> p2.end_index()
 # 20
 
-
 # django日志配置 logging由四个部分组成:记录器Logger,处理程序Handler,过滤器Filter，格式化Formatter
+
+# 模型迁移报错分析： models --> migrations --> django_migrations --> mysql_table
+
+# 数据库操作
+# 查询 (exact, iexact,contains,icontains,startswiht,endswith,in)
+# >>> user = User.objects.all()
+# >>> user.filter(username__exact='wy')
+# <QuerySet [<User: wy>]>
+# >>> print(user.filter(username__exact='wy'))
+# >>> print(user.filter(username__contains='ylt_10'))
+# <class 'django.db.models.query.QuerySet'>
+# >>> type(User.objects.get(id=2))
+# <class 'django.contrib.auth.models.User'>
+# >>> User.objects.get(id__exact=2)
+# <User: wy>
+# >>> User.objects.get(pk=2)
+# <User: wy>
+
+# 模型关系: 多对一，多对多，一对一
+# Django使用django.db.models.ForeignKey定义多对一关系
+# ForeignKey需要一个位置参数来指定本model关联的Model,ForeignKey关联的Model是'一'，ForeignKey所在的model是'多'
+# 正向查询(ForeignKey所在的模型查询关联的模型)
+# car = Car.objects.get(pk=2); car.manufacturer.all()
+# 反向查询(ForeignKey指向的模型查询ForeignKey所在的模型)
+# manufacturer = Manufacturer.objects.get(pk=1); manufacturer.cat_set.all()
