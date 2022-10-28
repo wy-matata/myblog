@@ -75,3 +75,7 @@ ajax:  common_ops.alert( res.msg,callback );
 
 ### 删除的用户为什么还能登录？
 
+### flask-sqlacodegen报错 ModuleNotFoundError: No module named 'MySQLdb'
+
+flask-sqlacodegen这个库中import是引入的是MySQLdb，而在python3.x已经是不支持MySQLdb
+flask-sqlacodegen 'mysql+pymysql://user:pwd@host/dbname' --tables table --outfile 'outfile' --flask
